@@ -20,8 +20,7 @@ Ce projet déploie une fonction Lambda Node.js qui renvoie l'heure actuelle à P
 ├── lambda/                  # Code de la fonction Lambda
 │   └── index.js             # Fonction Lambda
 ├── backend.tf               # Configuration du backend Terraform
-├── main.tf                  # Configuration principale Terraform
-└── variables.tf            # Variables Terraform
+└── main.tf                  # Configuration principale Terraform
 ```
 
 ## Déploiement
@@ -39,10 +38,24 @@ Le déploiement se fait automatiquement via GitHub Actions lorsqu'un push est ef
 
 La destruction de l'infrastructure peut être déclenchée manuellement via l'interface GitHub Actions (workflow_dispatch).
 
+## Détails techniques
+
+- Région AWS : eu-west-3 (Paris)
+- Runtime Lambda : Node.js 18.x
+- Nom de la fonction Lambda : groupe8-hello-world-lambda
+- Nom de l'API Gateway : groupe8-hello-world-api
+- Endpoint API : /hello (méthode GET)
+- Logs CloudWatch : rétention de 14 jours
+
 ## Exemple de réponse API
 
 ```json
 {
-  "message": "Hello World ! Ici Baptiste JU, à 14:30"
+  "message": "Hello World ! Ici Baptiste JULIENNE & Thomas CATROS, à 14:30"
 }
 ```
+
+## Outputs Terraform
+
+- `api_url` : URL de l'endpoint API Gateway
+- `cloudwatch_log_group` : Nom du groupe de logs CloudWatch pour la fonction Lambda
