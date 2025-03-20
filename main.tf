@@ -11,7 +11,7 @@ data "archive_file" "lambda_zip" {
 
 # IAM role for Lambda
 resource "aws_iam_role" "lambda_role" {
-  name = "lambda_execution_role_${formatdate("YYYYMMDDhhmmss", timestamp())}"  # Adding timestamp to make the name unique
+  name = "groupe8_lambda_execution_role"  # Adding timestamp to make the name unique
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
