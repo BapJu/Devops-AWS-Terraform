@@ -1,0 +1,2 @@
+.terraform/providers/**/terraform-provider-*
+!.terraform/terraform.tfstate
