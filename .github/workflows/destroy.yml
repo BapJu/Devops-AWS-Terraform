@@ -3,6 +3,10 @@ name: Destroy Infrastructure
 on:
   workflow_dispatch:
 
+# Add permissions block to allow writing to the repository
+permissions:
+  contents: write
+
 jobs:
   terraform:
     name: 'Terraform Destroy'
