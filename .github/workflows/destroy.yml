@@ -51,7 +51,8 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git checkout -b state || git checkout state
-        git pull origin state || true
+        # Specify merge strategy for pull to avoid the divergent branches error
+        git pull --ff-only origin state || git pull --rebase origin state || true
         mkdir -p tfstate
         cp -r .terraform* ./
         cp -r tfstate/terraform.tfstate* tfstate/
