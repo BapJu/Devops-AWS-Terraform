@@ -1,4 +1,7 @@
 exports.handler = async (event) => {
+  // Log the event for monitoring
+  console.log("Hi there! Lambda function execution started", JSON.stringify(event));
+  
   // Get current time in Paris
   const now = new Date();
   const parisTime = new Intl.DateTimeFormat('fr-FR', {
@@ -12,6 +15,7 @@ exports.handler = async (event) => {
   
   // Create response message
   const message = `Hello World ! Ici ${name}, à ${parisTime}`;
+  console.log("Response message created:", message);
   
   // Return response
   return {

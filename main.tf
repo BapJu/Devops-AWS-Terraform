@@ -33,6 +33,12 @@ resource "aws_iam_role_policy_attachment" "lambda_basic" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
+# CloudWatch Log Group for Lambda
+resource "aws_cloudwatch_log_group" "lambda_log_group" {
+  name              = "/aws/lambda/groupe8-hello-world-lambda"
+  retention_in_days = 14
+}
+
 # Lambda function
 resource "aws_lambda_function" "hello_lambda" {
   function_name    = "groupe8-hello-world-lambda"
@@ -43,7 +49,8 @@ resource "aws_lambda_function" "hello_lambda" {
   runtime          = "nodejs18.x"
 
   depends_on = [
-    aws_iam_role_policy_attachment.lambda_basic
+    aws_iam_role_policy_attachment.lambda_basic,
+    aws_cloudwatch_log_group.lambda_log_group
   ]
 }
 
@@ -101,4 +108,9 @@ resource "aws_api_gateway_deployment" "deployment" {
 output "api_url" {
   value       = "${aws_api_gateway_deployment.deployment.invoke_url}${aws_api_gateway_resource.resource.path}"
   description = "URL of the API Gateway endpoint"
+}
+
+output "cloudwatch_log_group" {
+  value       = aws_cloudwatch_log_group.lambda_log_group.name
+  description = "CloudWatch Log Group for Lambda function"
 }
