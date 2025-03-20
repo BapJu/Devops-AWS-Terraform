@@ -9,8 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout Repository
+    - name: Checkout Repository (Main Branch)
       uses: actions/checkout@v3
+      
+    - name: Checkout State Branch
+      uses: actions/checkout@v3
+      with:
+        ref: state
+        path: state_branch
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -24,6 +30,15 @@ jobs:
       with:
         terraform_version: 1.0.0
 
+    - name: Restore Terraform State
+      run: |
+        if [ -d "state_branch/.terraform" ]; then
+          cp -r state_branch/.terraform* .
+        fi
+        if [ -f "state_branch/terraform.tfstate" ]; then
+          cp state_branch/terraform.tfstate .
+        fi
+        
     - name: Terraform Init
       run: terraform init
 

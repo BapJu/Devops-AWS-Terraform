@@ -38,10 +38,7 @@ Le déploiement se fait automatiquement via GitHub Actions lorsqu'un push est ef
 
 ## Destruction de l'infrastructure
 
-La destruction de l'infrastructure peut être déclenchée de deux façons :
-
-1. Manuellement via l'interface GitHub Actions (workflow_dispatch)
-2. En modifiant le fichier `.github/workflows/destroy.yml` et en le poussant sur la branche main
+La destruction de l'infrastructure peut être déclenchée manuellement via l'interface GitHub Actions (workflow_dispatch).
 
 ## Exemple de réponse API
 
