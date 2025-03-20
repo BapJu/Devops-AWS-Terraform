@@ -8,7 +8,7 @@ exports.handler = async (event) => {
   }).format(now);
   
   // My name
-  const name = "Baptiste JULIENNE";
+  const name = "Baptiste JULIENNE & Thomas CATROS";
   
   // Create response message
   const message = `Hello World ! Ici ${name}, à ${parisTime}`;
