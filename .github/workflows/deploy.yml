@@ -3,7 +3,7 @@ name: Deploy Infrastructure
 on:
   push:
     branches:
-      - main
+      - master
     paths-ignore:
       - 'README.md'
       - '.github/workflows/destroy.yml'
