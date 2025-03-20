@@ -36,11 +36,12 @@ jobs:
 
     - name: Restore Terraform State
       run: |
+        mkdir -p tfstate
         if [ -d "state_branch/.terraform" ]; then
           cp -r state_branch/.terraform* .
         fi
-        if [ -f "state_branch/terraform.tfstate" ]; then
-          cp state_branch/terraform.tfstate .
+        if [ -f "state_branch/tfstate/terraform.tfstate" ]; then
+          cp state_branch/tfstate/terraform.tfstate tfstate/
         fi
         
     - name: Terraform Init
@@ -75,7 +76,9 @@ jobs:
         git config --local user.name "GitHub Action"
         git checkout -b state || git checkout state
         git pull origin state || true
-        cp -r .terraform* terraform.tfstate* ./
-        git add .terraform* terraform.tfstate*
+        mkdir -p tfstate
+        cp -r .terraform* ./
+        cp -r tfstate/terraform.tfstate* tfstate/
+        git add .terraform* tfstate/
         git commit -m "Update Terraform state" || echo "No changes to commit"
         git push origin state

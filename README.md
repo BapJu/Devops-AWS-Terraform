@@ -30,8 +30,7 @@ Le déploiement se fait automatiquement via GitHub Actions lorsqu'un push est ef
 
 ### Prérequis
 
-- Un bucket S3 nommé "tp-final-terraform-state" pour stocker l'état Terraform
-- Une table DynamoDB nommée "terraform-state-lock" pour le verrouillage de l'état
+- Une branche Git nommée "state" pour stocker l'état Terraform dans le dossier "tfstate/"
 - Les secrets GitHub suivants configurés dans le repository :
   - AWS_ACCESS_KEY_ID
   - AWS_SECRET_ACCESS_KEY
