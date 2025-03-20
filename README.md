@@ -44,6 +44,6 @@ La destruction de l'infrastructure peut être déclenchée manuellement via l'in
 
 ```json
 {
-  "message": "Hello World ! Ici Baptiste JU, à 14:30"
+  "message": "Hello World ! Ici Baptiste J, à 14:30"
 }
 ```
