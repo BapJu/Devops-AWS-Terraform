@@ -63,5 +63,5 @@ jobs:
         git add tfstate/ .terraform* 2>/dev/null || true
         git commit -m "Update Terraform state after destroy" || echo "No changes to commit"
         
-        # Force push to the state branch
-        git push -f origin temp_state:state
+        # Force push to the state branch using GITHUB_TOKEN
+        git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" temp_state:state
