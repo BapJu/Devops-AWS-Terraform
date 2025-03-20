@@ -62,9 +62,9 @@ resource "aws_api_gateway_resource" "resource" {
 
 # API Gateway Method
 resource "aws_api_gateway_method" "method" {
-  rest_api_id   = aws_api_gateway_rest_api.api.id
-  resource_id   = aws_api_gateway_resource.resource.id
-  http_method   = "GET"
+  rest_api_id        = aws_api_gateway_rest_api.api.id
+  resource_id        = aws_api_gateway_resource.resource.id
+  http_method        = "GET"
   authorization_type = "NONE"
 }
 
@@ -99,6 +99,6 @@ resource "aws_api_gateway_deployment" "deployment" {
 
 # Output the API Gateway URL
 output "api_url" {
-  value = "${aws_api_gateway_deployment.deployment.invoke_url}${aws_api_gateway_resource.resource.path}"
+  value       = "${aws_api_gateway_deployment.deployment.invoke_url}${aws_api_gateway_resource.resource.path}"
   description = "URL of the API Gateway endpoint"
 }
