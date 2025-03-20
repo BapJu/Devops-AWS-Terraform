@@ -101,12 +101,24 @@ resource "aws_api_gateway_deployment" "deployment" {
   ]
 
   rest_api_id = aws_api_gateway_rest_api.api.id
-  aws_api_gateway_stage  = "prod"
+  # Removing the deprecated stage_name attribute
+  
+  # Adding a lifecycle configuration to handle redeployment
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
-# Output the API Gateway URL
+# Adding a separate API Gateway Stage resource as recommended
+resource "aws_api_gateway_stage" "prod" {
+  deployment_id = aws_api_gateway_deployment.deployment.id
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  stage_name    = "prod"
+}
+
+# Output the API Gateway URL - updated to use the new stage resource
 output "api_url" {
-  value       = "${aws_api_gateway_deployment.deployment.invoke_url}${aws_api_gateway_resource.resource.path}"
+  value       = "${aws_api_gateway_stage.prod.invoke_url}${aws_api_gateway_resource.resource.path}"
   description = "URL of the API Gateway endpoint"
 }
 
