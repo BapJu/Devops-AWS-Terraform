@@ -35,7 +35,7 @@ resource "aws_iam_role_policy_attachment" "lambda_basic" {
 
 # Lambda function
 resource "aws_lambda_function" "hello_lambda" {
-  function_name    = "hello-world-lambda"
+  function_name    = "groupe8-hello-world-lambda"
   filename         = data.archive_file.lambda_zip.output_path
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
   role             = aws_iam_role.lambda_role.arn
@@ -49,7 +49,7 @@ resource "aws_lambda_function" "hello_lambda" {
 
 # API Gateway REST API
 resource "aws_api_gateway_rest_api" "api" {
-  name        = "hello-world-api"
+  name        = "groupe8-hello-world-api"
   description = "API for Hello World Lambda"
 }
 

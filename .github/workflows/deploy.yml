@@ -56,9 +56,9 @@ jobs:
     - name: Get API URL
       id: get-url
       run: |
-        API_URL=$(terraform output -raw api_url)
-        echo "API_URL=$API_URL" >> $GITHUB_ENV
-        echo "api_url=$API_URL" >> $GITHUB_OUTPUT
+        API_URL=$(terraform output -raw api_url | tr -d '\n')
+        echo "API_URL=${API_URL}" >> $GITHUB_ENV
+        echo "api_url=${API_URL}" >> $GITHUB_OUTPUT
     
     - name: Test API
       run: |
