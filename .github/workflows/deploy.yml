@@ -52,6 +52,19 @@ jobs:
 
     - name: Terraform Apply
       run: terraform apply -auto-approve tfplan
+    
+    - name: Save Terraform State
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git checkout -b state || git checkout state
+        git pull origin state || true
+        mkdir -p tfstate
+        cp -r .terraform* ./
+        cp -r tfstate/terraform.tfstate* tfstate/
+        git add .terraform* tfstate/
+        git commit -m "Update Terraform state" || echo "No changes to commit"
+        git push origin state
 
     - name: Get API URL
       id: get-url
@@ -69,15 +82,4 @@ jobs:
         echo "API Response: $RESPONSE"
         echo "API test completed successfully"
 
-    - name: Save Terraform State
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git checkout -b state || git checkout state
-        git pull origin state || true
-        mkdir -p tfstate
-        cp -r .terraform* ./
-        cp -r tfstate/terraform.tfstate* tfstate/
-        git add .terraform* tfstate/
-        git commit -m "Update Terraform state" || echo "No changes to commit"
-        git push origin state
+    
