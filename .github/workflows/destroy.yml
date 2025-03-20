@@ -63,8 +63,12 @@ jobs:
         mkdir -p tfstate
         cp -f terraform.tfstate* tfstate/ 2>/dev/null || true
         
-        # Stage and commit only the terraform state files
-        git add tfstate/ .terraform* 2>/dev/null || true
+        # Create a .gitignore file to exclude large provider files
+        echo ".terraform/providers/**/terraform-provider-*" > .gitignore
+        echo "!.terraform/terraform.tfstate" >> .gitignore
+        
+        # Stage and commit only the terraform state files, excluding large provider binaries
+        git add .gitignore tfstate/ .terraform/terraform.tfstate .terraform.lock.hcl 2>/dev/null || true
         git commit -m "Update Terraform state after destroy" || echo "No changes to commit"
         
         # Force push to the state branch using GITHUB_TOKEN
