@@ -50,12 +50,18 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git checkout -b state || git checkout state
-        # Specify merge strategy for pull to avoid the divergent branches error
-        git pull --ff-only origin state || git pull --rebase origin state || true
+        
+        # Create a fresh state branch from the current state
+        git checkout --orphan temp_state
+        git rm -rf --cached .
+        
+        # Add only the terraform state files we want to preserve
         mkdir -p tfstate
-        cp -r .terraform* ./
-        cp -r tfstate/terraform.tfstate* tfstate/
-        git add .terraform* tfstate/
+        cp -f terraform.tfstate* tfstate/ 2>/dev/null || true
+        
+        # Stage and commit only the terraform state files
+        git add tfstate/ .terraform* 2>/dev/null || true
         git commit -m "Update Terraform state after destroy" || echo "No changes to commit"
-        git push origin state
+        
+        # Force push to the state branch
+        git push -f origin temp_state:state
