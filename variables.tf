@@ -7,11 +7,11 @@ variable "aws_region" {
 variable "lambda_function_name" {
   description = "Name of the Lambda function"
   type        = string
-  default     = "hello-world-lambda"
+  default     = "groupe8-hello-world-lambda"
 }
 
 variable "api_name" {
   description = "Name of the API Gateway"
   type        = string
-  default     = "hello-world-api"
+  default     = "groupe8-hello-world-api"
 }
